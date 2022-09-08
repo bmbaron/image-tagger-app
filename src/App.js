@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
-// import { getPhotoData } from './components/firebaseConnect'
-
-import bunny from './components/hidden-bunny.png'
-import snake from './components/hidden-snake.png'
-import spider from './components/hidden-spider.png'
+import { getPhotoData } from './components/firebaseConnect'
 
 function App() {
 
@@ -22,47 +18,29 @@ function App() {
   const [found, setFound] = useState(false)
   const [select, setSelect] = useState("")
 
-  const data = [
-    {
-      "img": bunny,
-      "animal": "bunny",
-      "coords": [0.26,0.28]
-    },
-    {
-      "img": snake,
-      "animal": "snake",
-      "coords": [0.79,0.74]
-    },
-    {
-      "img": spider,
-      "animal": "spider",
-      "coords": [0.16,0.74]
-    },
-  ]
+  const [imageData, setImageData] = useState([])
 
-  function initializeImage() {
-    setImage(data[0].img)
-    setAnimal(data[0].animal)
-    setCoords(data[0].coords)
+  function initializeImage(res) {
+    setImage(res[0].url)
+    setAnimal(res[0].animal)
+    setCoords(res[0].coords)
     setImageCounter(1)
   }
 
   
-  function handleResize(data) {
+  function handleResize() {
     if(null !== myRef.current) {
       setImgWidth(myRef.current.clientWidth)
       setImgHeight(myRef.current.clientHeight)
-
-      console.log("RESIZE")
-      console.log(myRef.current.clientWidth)
-      console.log(myRef.current.clientHeight)
     }
   }
 
   useEffect(() => {
-    initializeImage()
+    getPhotoData().then((res) => {
+      setImageData(res)
+      initializeImage(res)
+    })
     window.addEventListener('resize', handleResize)
-    console.log("ran")
   }, [])
 
 
@@ -80,10 +58,10 @@ function App() {
 
       setClickLocation([boxStartX, boxStartY])
 
-      console.log(boxStartX, boxStartY)
-      console.log(boxEndX, boxEndY)
-      console.log(coords[0], coords[1])
-      console.log("__________________")
+      // console.log(boxStartX, boxStartY)
+      // console.log(boxEndX, boxEndY)
+      // console.log(coords[0], coords[1])
+      // console.log("__________________")
 
 
 
@@ -97,7 +75,7 @@ function App() {
   }
 
   function checkFunction(event) {
-    console.log(found)
+    // console.log(found)
     if(found) {
       if (event.target.value === animal) {
         alert(`you found a ${animal}`)
@@ -113,11 +91,10 @@ function App() {
   }
 
   function getNext() {
-    if(null !== data) {
-      setImage(data[imageCounter].img)
-      setAnimal(data[imageCounter].animal)
-      setCoords(data[imageCounter].coords)
-      console.log(data[imageCounter].coords)
+    if(null !== imageData) {
+      setImage(imageData[imageCounter].url)
+      setAnimal(imageData[imageCounter].animal)
+      setCoords(imageData[imageCounter].coords)
       setFound(false)
     }
     if(imageCounter === 2) {

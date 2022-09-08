@@ -1,26 +1,13 @@
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 import {
-  getStorage,
-  ref,
-  getDownloadURL,
-} from 'firebase/storage';
-
-import {
   getFirestore,
   collection,
-  addDoc,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
-  setDoc,
-  updateDoc,
-  doc,
-  serverTimestamp,
+	getDocs,
 } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
@@ -35,9 +22,41 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app)
+
+const imageUrlPrefix = 'https://firebasestorage.googleapis.com/v0/b/image-tagger-2c2fa.appspot.com/o/images%2F'
+
+const images = [
+	imageUrlPrefix + 'hidden-bunny.png?alt=media',
+	imageUrlPrefix + 'hidden-snake.png?alt=media',
+	imageUrlPrefix + 'hidden-spider.png?alt=media',
+]
 
 export async function getPhotoData() {
-	return [
+	console.log("getting firebase data")
+	const imageData = []
+	const articlesRef = collection(db, "images")
+	const querySnapshot = await getDocs(articlesRef)
+		
+	let counter = 0;
+
+	querySnapshot.forEach((doc) => { 
+		imageData[counter] = {
+			url: images[counter],
+			animal: doc.data().animal,
+			coords: doc.data().coords
+		}
+		counter += 1
+	})
+
+	return imageData
+}
+
+
+	// storageRef.snapshot.ref.getDownloadURL().then((url) => {
+	// 	console.log(url)
+	// })
+
     // {
     //   "img": bunny,
     //   "animal": "bunny",
@@ -53,5 +72,3 @@ export async function getPhotoData() {
     //   "animal": "spider",
     //   "coords": [0.16,0.74]
     // },
-  ]
-}
