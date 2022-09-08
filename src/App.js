@@ -132,8 +132,6 @@ function App() {
     <div className="App" style={{width: '100vw'}}>
       <img
         ref={myRef}
-        // src={bunny}
-        // src={snake}
         src={image}
         alt="white square with black dot in center"
         style={{margin: 'auto', width: 'auto', height: '100vh'}}
