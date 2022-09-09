@@ -1,10 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, memo } from 'react';
 import './App.css';
 import { getImages } from './components/firebaseConnect'
+import placeholder from './components/loading-image.png'
 
 function App() {
 
   let myRef = useRef(null)
+
+  const [isLoading, setIsLoading] = useState(true)
+
+  const [imageData, setImageData] = useState([])
 
   const [image, setImage] = useState("")
   const [animal, setAnimal] = useState("")
@@ -19,9 +24,24 @@ function App() {
   const [found, setFound] = useState(false)
   const [select, setSelect] = useState("")
 
-  const [imageData, setImageData] = useState([])
   const [foundAnimals, setFoundAnimals] = useState({"rabbit": false, "snake": false, "spider": false})
   const [wrongAnswer, setWrongAnswer] = useState(false)
+  const [correctAnswer, setCorrectAnswer] = useState(false)
+
+  useEffect(() => {
+    getImages().then((res) => {
+      setImageData(res)
+      initializeImage(res)
+    })
+    window.addEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    setTimeout(()=>{
+      setWrongAnswer(false)
+      setCorrectAnswer(false)
+    }, 3000)
+  }, [wrongAnswer, correctAnswer])
 
   function initializeImage(res) {
     setImage(res[0].url)
@@ -37,26 +57,19 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    getImages().then((res) => {
-      setImageData(res)
-      initializeImage(res)
-    })
-    window.addEventListener('resize', handleResize)
-  }, [])
-
-
-
   function findClickLocation(event) {
     if(null !== myRef.current) {
       if(imgWidth === 0 && imgHeight === 0) {
         setImgWidth(myRef.current.clientWidth)
         setImgHeight(myRef.current.clientHeight)
       }
-      let boxStartX = Number(((event.clientX-event.currentTarget.getBoundingClientRect().left)/myRef.current.clientWidth).toFixed(2))
+      let boxStartX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)-25)/myRef.current.clientWidth).toFixed(2))
       let boxEndX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)+50)/myRef.current.clientWidth).toFixed(2))
-      let boxStartY = Number(((event.clientY-event.currentTarget.getBoundingClientRect().top)/myRef.current.clientHeight).toFixed(2))
+      let boxStartY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)-25)/myRef.current.clientHeight).toFixed(2))
       let boxEndY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)+50)/myRef.current.clientHeight).toFixed(2))
+
+      console.log((event.clientX-event.currentTarget.getBoundingClientRect().left)/myRef.current.clientWidth)
+      console.log((event.clientY-event.currentTarget.getBoundingClientRect().top)/myRef.current.clientHeight)
 
       setClickLocation([boxStartX, boxStartY])
       setMarginLeft(event.currentTarget.getBoundingClientRect().left)
@@ -71,17 +84,12 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    setTimeout(()=>{
-      setWrongAnswer(false)
-    }, 2000)
-  }, [wrongAnswer])
-
   function checkFunction(event) {
     // console.log(found)
     if(found) {
       if (event.target.value === animal) {
         setFoundAnimals(prev => ({...prev, [event.target.value]: true}))
+        setCorrectAnswer(true)
       }
     }
     else {
@@ -92,6 +100,7 @@ function App() {
 
   function getNext() {
     if(null !== imageData) {
+      setIsLoading(true)
       setImage(imageData[imageCounter].url)
       setAnimal(imageData[imageCounter].animal)
       setCoords(imageData[imageCounter].coords)
@@ -105,45 +114,56 @@ function App() {
     }
   }
 
+  const Image = memo(function Image({ src, ref, onClick }) {
+    return <img src={src} ref={myRef} onLoad={() => setIsLoading(false)} onClick={(e) => findClickLocation(e)} alt="animal" className="animal-image" />;
+  });
+
   return (
-    <div className="App" style={{width: '100vw'}}>
+    <div className="App">
       <img
-        className="animal-image"
-        ref={myRef}
+        className="placeholder"
+        alt="placeholder"
+        src={placeholder}
+        style={{ display: isLoading ? "block" : "none" }}
+      />
+      <Image 
         src={image}
-        alt="white square with black dot in center"
-        onClick={(e) => findClickLocation(e)}
-      />      
-      <div className="status-box">
-        <h1 className="status-title">Hidden Animals</h1>
-        <div className="animal-targets">
-        <div className={foundAnimals["rabbit"] ? "found" : ""}>
-            <input type="checkbox" id="animal1" name="animal1" value="Rabbit" checked={foundAnimals["rabbit"]} disabled/>
-            <label htmlFor="animal1">rabbit (picture 1)</label>
+        style={{display: isLoading ? "none" : "block"}}
+      />
+      <div className="info">
+        <div className={correctAnswer ? "status-box correct": "status-box"}>
+          <h1 className="status-title">Hidden Animals</h1>
+          <div className="animal-targets">
+          <div className={foundAnimals["rabbit"] ? "found" : ""}>
+              <input type="checkbox" id="animal1" name="animal1" value="Rabbit" checked={foundAnimals["rabbit"]} disabled/>
+              <label htmlFor="animal1">picture 1</label>
+            </div>
+            <div className={foundAnimals["snake"] ? "found" : ""}>
+              <input type="checkbox" id="animal2" name="animal2" value="Snake" checked={foundAnimals["snake"]} disabled/>
+              <label htmlFor="animal2">picture 2</label>
+            </div>
+            <div className={foundAnimals["spider"] ? "found" : ""}>
+              <input type="checkbox" id="animal3" name="animal3" value="Spider" checked={foundAnimals["spider"]} disabled/>
+              <label htmlFor="animal3">picture 3</label>
+            </div>
           </div>
-          <div className={foundAnimals["snake"] ? "found" : ""}>
-            <input type="checkbox" id="animal2" name="animal2" value="Snake" checked={foundAnimals["snake"]} disabled/>
-            <label htmlFor="animal2">snake (picture 2)</label>
-          </div>
-          <div className={foundAnimals["spider"] ? "found" : ""}>
-            <input type="checkbox" id="animal3" name="animal3" value="Spider" checked={foundAnimals["spider"]} disabled/>
-            <label htmlFor="animal3">spider (picture 3)</label>
-          </div>
+          <button className="next-pic-button" onClick={getNext}>next picture</button>
         </div>
-        <button className="next-pic-button" onClick={getNext}>next picture</button>
+        <h1 className="instructions">find one animal per picture and tag their heads</h1>
       </div>
-      {null !== myRef.current && <div className="target-box" 
+
+      {null !== myRef.current && <div className={wrongAnswer ? "target-box wrong" : "target-box"} 
         style={{
+          display: isLoading ? 'none' : 'block',
           left: clickLocation[0]*imgWidth+marginLeft,
           top: clickLocation[1]*imgHeight,
         }}
       >
         <select
-          className={wrongAnswer ? "wrong decorated" : "decorated"}
+          className="decorated"
           id="animals"
           name="animals"
           onChange={(e) => checkFunction(e)}
-          size={4}
           style={{marginLeft: '4px'}}
           value={select}
         >

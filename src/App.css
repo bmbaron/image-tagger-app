@@ -6,12 +6,15 @@
 }
 
 .animal-image {
-  margin: auto;
-  margin-top: 0;
-  margin-bottom: 0;
-  width: auto;
-  height: 100vh;
+  width: 100vw;
+  height: auto;
   cursor: pointer;
+}
+
+.placeholder {
+  margin: auto;
+  width: 100vw;
+  height: 100%;
 }
 
 .status-box {
@@ -20,15 +23,15 @@
   left: 0;
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(195, 192, 192, 0.5);
   padding: 0;
 }
 
 .status-box > h1 {
   width: 100px;
   margin: auto;
-  margin-right: 3rem;
 }
 
 .status-box > * {
@@ -52,7 +55,8 @@
 
 .animal-targets label {
   margin-top: -4px;
-  margin-left: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .animal-targets .found {
@@ -63,17 +67,8 @@ input[type=checkbox] {
   transform: scale(1.5);
 }
 
-.target-box {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background: red;
-  border-radius: 5px;
-}
-
 .next-pic-button {
   margin: auto;
-  margin-left: 3rem;
   width: 120px;
   height: 40px;
   border: 0;
@@ -89,9 +84,17 @@ input[type=checkbox] {
   transform: scale(1.1);
 }
 
+.target-box {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: none;
+  border: 4px solid red;
+  border-radius: 25px;
+}
+
 select.decorated {
   overflow: hidden;
-  margin-right: 3px;
   margin-top: 3px;
 }
 
@@ -100,13 +103,37 @@ select.decorated option:hover {
 }
 
 @keyframes wrong-animation {
-  from {background-color: orange;}
-  to {background-color: white;}
+  from {background-color: red;}
+  to {background-color: none;}
+}
+
+@keyframes correct-animation {
+  from {background-color: green;}
+  to {background-color: rgba(195, 192, 192);}
 }
 
 .wrong {
   animation-name: wrong-animation;
-  animation-duration: 2s;
+  animation-duration: 3s;
+}
+
+.correct {
+  animation-name: correct-animation;
+  animation-duration: 3s;
+} 
+
+.instructions {
+  margin: auto;
+  line-height: 5rem;
+}
+
+@media only screen and (max-width: 750px) {
+  .instructions {
+    margin-left: 20px;
+    margin-right: 20px;
+    line-height: 2rem;
+    font-size: 1.5rem;
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -125,10 +152,10 @@ select.decorated option:hover {
     transform: scale(1);
   }
 }
+
 @media only screen and (max-width: 400px) {
   .status-box > h1 {
     font-size: 1.5rem;
-    margin-right: 0.5rem;
   }
   .animal-targets {
     padding: 0rem;
@@ -142,14 +169,4 @@ select.decorated option:hover {
     margin-left: 2px;
     margin-right: 4px;
   }
-  .next-pic-button {
-    margin: auto;
-    margin-left: 0.5rem;
-  }
-  .animal-image {
-    width: 100vw;
-    height: 100vh;
-    cursor: pointer;
-  }
-
 }
