@@ -24,17 +24,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
 
-const imageUrlPrefix = 'https://firebasestorage.googleapis.com/v0/b/image-tagger-2c2fa.appspot.com/o/images%2F'
-
-const images = [
-	imageUrlPrefix + 'hidden-bunny.png?alt=media',
-	imageUrlPrefix + 'hidden-snake.png?alt=media',
-	imageUrlPrefix + 'hidden-spider.png?alt=media',
-]
-
-export async function getPhotoData() {
-	console.log("getting firebase data")
+export async function getImages() {
 	const imageData = []
+  const imageUrlPrefix = 'https://firebasestorage.googleapis.com/v0/b/image-tagger-2c2fa.appspot.com/o/images%2F'
+  const images = [
+    imageUrlPrefix + 'hidden-bunny.png?alt=media',
+    imageUrlPrefix + 'hidden-snake.png?alt=media',
+    imageUrlPrefix + 'hidden-spider.png?alt=media',
+  ]
+
+	console.log("getting firebase data")
 	const articlesRef = collection(db, "images")
 	const querySnapshot = await getDocs(articlesRef)
 		
@@ -51,24 +50,3 @@ export async function getPhotoData() {
 
 	return imageData
 }
-
-
-	// storageRef.snapshot.ref.getDownloadURL().then((url) => {
-	// 	console.log(url)
-	// })
-
-    // {
-    //   "img": bunny,
-    //   "animal": "bunny",
-    //   "coords": [0.26,0.28]
-    // },
-    // {
-    //   "img": snake,
-    //   "animal": "snake",
-    //   "coords": [0.79,0.74]
-    // },
-    // {
-    //   "img": spider,
-    //   "animal": "spider",
-    //   "coords": [0.16,0.74]
-    // },

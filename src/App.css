@@ -1,3 +1,155 @@
+
+.App {
+  margin: auto;
+  text-align: center;
+  height: 100vh;
+}
+
+.animal-image {
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  width: auto;
+  height: 100vh;
+  cursor: pointer;
+}
+
+.status-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 0;
+}
+
+.status-box > h1 {
+  width: 100px;
+  margin: auto;
+  margin-right: 3rem;
+}
+
+.status-box > * {
+  margin: auto;
+  margin-bottom: 2rem;
+}
+
+.animal-targets {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(41, 108, 224);
+  margin: 0;
+  padding: 1rem;
+}
+
+.animal-targets > *{
+  display: flex;
+  font-size: 1.4rem;
+  padding: 0.1rem;
+}
+
+.animal-targets label {
+  margin-top: -4px;
+  margin-left: 5px;
+}
+
+.animal-targets .found {
+  color: white;
+}
+
+input[type=checkbox] {
+  transform: scale(1.5);
+}
+
+.target-box {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: red;
+  border-radius: 5px;
+}
+
+.next-pic-button {
+  margin: auto;
+  margin-left: 3rem;
+  width: 120px;
+  height: 40px;
+  border: 0;
+  background-color: rgb(41, 108, 224);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.next-pic-button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+select.decorated {
+  overflow: hidden;
+  margin-right: 3px;
+  margin-top: 3px;
+}
+
 select.decorated option:hover {
   box-shadow: 0 0 10px 100px #8fcce2 inset;
+}
+
+@keyframes wrong-animation {
+  from {background-color: orange;}
+  to {background-color: white;}
+}
+
+.wrong {
+  animation-name: wrong-animation;
+  animation-duration: 2s;
+}
+
+@media only screen and (max-width: 600px) {
+  .animal-targets {
+    padding: 0rem;
+    padding-top: 5px;
+  }
+  .animal-targets > *{
+    font-size: 1rem;
+  }
+  .animal-targets label {
+    margin-top: -2px;
+    margin-left: 2px;
+  }
+  input[type=checkbox] {
+    transform: scale(1);
+  }
+}
+@media only screen and (max-width: 400px) {
+  .status-box > h1 {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+  }
+  .animal-targets {
+    padding: 0rem;
+    padding-top: 5px;
+  }
+  .animal-targets > *{
+    font-size: 0.7rem;
+  }
+  .animal-targets label {
+    margin-top: 4px;
+    margin-left: 2px;
+    margin-right: 4px;
+  }
+  .next-pic-button {
+    margin: auto;
+    margin-left: 0.5rem;
+  }
+  .animal-image {
+    width: 100vw;
+    height: 100vh;
+    cursor: pointer;
+  }
+
 }
