@@ -90,6 +90,9 @@ function App() {
       if (event.target.value === animal) {
         setFoundAnimals(prev => ({...prev, [event.target.value]: true}))
         setCorrectAnswer(true)
+        setTimeout(()=>{
+          getNext()
+        }, 2000)
       }
     }
     else {
