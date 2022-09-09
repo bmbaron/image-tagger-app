@@ -109,7 +109,7 @@ select.decorated option:hover {
 
 @keyframes correct-animation {
   from {background-color: green;}
-  to {background-color: rgba(195, 192, 192);}
+  to {background-color: none;}
 }
 
 .wrong {
