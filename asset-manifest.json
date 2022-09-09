@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/image-tagger-app/static/css/main.5de927eb.css",
+    "main.js": "/image-tagger-app/static/js/main.6f7d36ff.js",
+    "index.html": "/image-tagger-app/index.html",
+    "main.5de927eb.css.map": "/image-tagger-app/static/css/main.5de927eb.css.map",
+    "main.6f7d36ff.js.map": "/image-tagger-app/static/js/main.6f7d36ff.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5de927eb.css",
+    "static/js/main.6f7d36ff.js"
+  ]
+}
