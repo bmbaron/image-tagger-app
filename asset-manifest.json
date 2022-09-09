@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/image-tagger-app/static/css/main.847c3d6c.css",
-    "main.js": "/image-tagger-app/static/js/main.6f7d36ff.js",
+    "main.js": "/image-tagger-app/static/js/main.8247c84c.js",
     "index.html": "/image-tagger-app/index.html",
     "main.847c3d6c.css.map": "/image-tagger-app/static/css/main.847c3d6c.css.map",
-    "main.6f7d36ff.js.map": "/image-tagger-app/static/js/main.6f7d36ff.js.map"
+    "main.8247c84c.js.map": "/image-tagger-app/static/js/main.8247c84c.js.map"
   },
   "entrypoints": [
     "static/css/main.847c3d6c.css",
-    "static/js/main.6f7d36ff.js"
+    "static/js/main.8247c84c.js"
   ]
 }
