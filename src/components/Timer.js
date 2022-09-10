@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function Timer ({endTimer, setFinalTime}) {
+function Timer ({endTimer, setFinalTime, maxTime}) {
 
 	const [counter, setCounter] = useState(0)
 	
@@ -12,7 +12,7 @@ function Timer ({endTimer, setFinalTime}) {
 
 	return (
 		<div className="timer-box">
-			<h1 className="status-title">{counter.toFixed(1)}</h1>
+			<h1 className={counter < maxTime ? "winning-time" : "losing-time"}>{counter.toFixed(1)}</h1>
 		</div>
 	);
 };

@@ -62,7 +62,7 @@ function App() {
     if(startTimer && finalTime < highScores[2].time) {
       console.log("winner")
     }
-  }, [finalTime, highScores])
+  }, [startTimer, finalTime, highScores])
 
   function initializeImage(res) {
     setImage(res[0].url)
@@ -145,7 +145,7 @@ function App() {
     }
   }
 
-  const Image = memo(function Image({ src, ref, onClick }) {
+  const Image = memo(function Image({ src }) {
     return <img src={src} ref={myRef} onLoad={() => setIsLoading(false)} onClick={(e) => findClickLocation(e)} alt="animal" className="animal-image" />;
   });
 
@@ -166,7 +166,25 @@ function App() {
           className={correctAnswer ? "status-box correct": "status-box"}
           style={{ backgroundColor: allFound && 'rgba(31, 222, 53, 0.5)' }}
         >
-          {startTimer ? <Timer endTimer={allFound} setFinalTime = {setFinalTime} /> : <h1 className="status-title">Hidden Animals</h1>}
+          {startTimer ? 
+            <div>
+              <Timer
+                endTimer={allFound}
+                setFinalTime={setFinalTime}
+                maxTime={highScores[2].time}
+              />
+              {finalTime !== 0 && 
+                <button
+                  style={{display: finalTime < highScores[2].time ? 'block' : 'none' }}
+                  // onClick={setOpenModal(true)}
+                >
+                  add your name
+                </button>
+              }
+            </div>
+            : 
+            <h1 className="status-title">Hidden Animals</h1>
+          }
           {startTimer && <ScoreTable highScores={highScores} />}
           <div className="animal-targets">
           <div className={foundAnimals["rabbit"] ? "found" : ""}>
