@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
-function Timer ({allFound}) {
+function Timer ({endTimer, setFinalTime}) {
 
 	const [counter, setCounter] = useState(0)
 	
 	useEffect(() => {
 		setTimeout(() => {
-			setCounter(counter + 1)
-		}, 1000);
-	}, [counter])
+			!endTimer ? setCounter(counter + 0.1): setFinalTime(counter)
+		}, 100);
+	}, [counter, endTimer])
 
 	return (
-		<h1 className="status-title">{counter + '.0'}</h1>
+		<div className="timer-box">
+			<h1 className="status-title">{counter.toFixed(1)}</h1>
+		</div>
 	);
 };
 

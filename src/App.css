@@ -128,6 +128,21 @@ select.decorated option:hover {
   line-height: 5rem;
 }
 
+.timer-box {
+  margin: auto;
+  width: 100px;
+  background: white;
+  border-radius: 5px;
+}
+
+.timer-box > h1 {
+  padding: 3px;
+  width: auto;
+  margin: auto;
+  font-variant-numeric: tabular-nums;
+  height: auto;
+}
+
 @media only screen and (max-width: 750px) {
   .placeholder {
     width: 100vw;

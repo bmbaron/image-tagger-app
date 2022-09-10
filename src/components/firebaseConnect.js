@@ -33,7 +33,7 @@ export async function getImages() {
     imageUrlPrefix + 'hidden-spider.png?alt=media',
   ]
 
-	console.log("getting firebase data")
+	console.log("getting firebase image data")
 	const articlesRef = collection(db, "images")
 	const querySnapshot = await getDocs(articlesRef)
 		
@@ -49,4 +49,27 @@ export async function getImages() {
 	})
 
 	return imageData
+}
+
+export async function getHighScores() {
+	const scoreData = []
+
+	console.log("getting firebase high scores")
+	const articlesRef = collection(db, "highscores")
+	const querySnapshot = await getDocs(articlesRef)
+		
+	let counter = 0;
+
+	querySnapshot.forEach((doc) => { 
+		scoreData[counter] = doc.data()
+		counter += 1
+	})
+  //sort the results from fastest to slowest times
+  const sortedScores = scoreData.sort((a,b) => {
+    return (a.time  - b.time)
+  })
+  //only return top fastest times
+  const top3scores = sortedScores.slice(0, 3)
+
+  return top3scores
 }

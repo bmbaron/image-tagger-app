@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, memo } from 'react';
 import './App.css';
-import { getImages } from './components/firebaseConnect'
+import { getImages, getHighScores } from './components/firebaseConnect'
 import placeholder from './components/loading-image.png'
 import Timer from './components/Timer'
 
@@ -10,6 +10,7 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(true)
   const [startTimer, setStartTimer] = useState(false)
+  const [finalTime, setFinalTime] = useState(0.0)
 
   const [imageData, setImageData] = useState([])
 
@@ -154,7 +155,7 @@ function App() {
           className={correctAnswer ? "status-box correct": "status-box"}
           style={{ backgroundColor: allFound && 'rgba(31, 222, 53, 0.5)' }}
         >
-          {startTimer ? <Timer /> : <h1 className="status-title">Hidden Animals</h1>}
+          {startTimer ? <Timer endTimer={allFound} setFinalTime = {setFinalTime} /> : <h1 className="status-title">Hidden Animals</h1>}
           <div className="animal-targets">
           <div className={foundAnimals["rabbit"] ? "found" : ""}>
               <input type="checkbox" id="animal1" name="animal1" value="Rabbit" checked={foundAnimals["rabbit"]} disabled/>
@@ -171,7 +172,7 @@ function App() {
           </div>
           <button className="next-pic-button" onClick={getNext}>next picture</button>
         </div>
-        <h1 className="instructions">{allFound ? "You found them all!": "Each picture has 1 animal. Tag their heads."}</h1>
+        <h1 className="instructions">{allFound ? "Finished in " + finalTime + " seconds": "Each picture has 1 animal. Tag their heads."}</h1>
       </div>
 
       {null !== myRef.current && <div className={wrongAnswer ? "target-box wrong" : "target-box"} 
