@@ -2,12 +2,14 @@ import React, { useState, useRef, useEffect, memo } from 'react';
 import './App.css';
 import { getImages } from './components/firebaseConnect'
 import placeholder from './components/loading-image.png'
+import Timer from './components/Timer'
 
 function App() {
 
   let myRef = useRef(null)
 
   const [isLoading, setIsLoading] = useState(true)
+  const [startTimer, setStartTimer] = useState(false)
 
   const [imageData, setImageData] = useState([])
 
@@ -69,6 +71,7 @@ function App() {
       if(imgWidth === 0 && imgHeight === 0) {
         setImgWidth(myRef.current.clientWidth)
         setImgHeight(myRef.current.clientHeight)
+        setStartTimer(true)
       }
       let boxStartX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)-25)/myRef.current.clientWidth).toFixed(2))
       let boxEndX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)+50)/myRef.current.clientWidth).toFixed(2))
@@ -151,7 +154,7 @@ function App() {
           className={correctAnswer ? "status-box correct": "status-box"}
           style={{ backgroundColor: allFound && 'rgba(31, 222, 53, 0.5)' }}
         >
-          <h1 className="status-title">Hidden Animals</h1>
+          {startTimer ? <Timer /> : <h1 className="status-title">Hidden Animals</h1>}
           <div className="animal-targets">
           <div className={foundAnimals["rabbit"] ? "found" : ""}>
               <input type="checkbox" id="animal1" name="animal1" value="Rabbit" checked={foundAnimals["rabbit"]} disabled/>
