@@ -8,7 +8,7 @@ function Timer ({endTimer, setFinalTime}) {
 		setTimeout(() => {
 			!endTimer ? setCounter(counter + 0.1): setFinalTime(counter)
 		}, 100);
-	}, [counter, endTimer])
+	}, [counter, endTimer, setFinalTime])
 
 	return (
 		<div className="timer-box">

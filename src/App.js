@@ -3,6 +3,7 @@ import './App.css';
 import { getImages, getHighScores } from './components/firebaseConnect'
 import placeholder from './components/loading-image.png'
 import Timer from './components/Timer'
+import ScoreTable from './components/ScoreTable'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
   const [finalTime, setFinalTime] = useState(0.0)
 
   const [imageData, setImageData] = useState([])
+  const [highScores, setHighScores] = useState([])
 
   const [image, setImage] = useState("")
   const [animal, setAnimal] = useState("")
@@ -37,6 +39,9 @@ function App() {
       setImageData(res)
       initializeImage(res)
     })
+    getHighScores().then((res) => {
+      setHighScores(res)
+    })
     window.addEventListener('resize', handleResize)
   }, [])
 
@@ -52,6 +57,12 @@ function App() {
       setAllFound(true)
     }
   }, [foundAnimals])
+
+  useEffect(() => {
+    if(startTimer && finalTime < highScores[2].time) {
+      console.log("winner")
+    }
+  }, [finalTime, highScores])
 
   function initializeImage(res) {
     setImage(res[0].url)
@@ -156,6 +167,7 @@ function App() {
           style={{ backgroundColor: allFound && 'rgba(31, 222, 53, 0.5)' }}
         >
           {startTimer ? <Timer endTimer={allFound} setFinalTime = {setFinalTime} /> : <h1 className="status-title">Hidden Animals</h1>}
+          {startTimer && <ScoreTable highScores={highScores} />}
           <div className="animal-targets">
           <div className={foundAnimals["rabbit"] ? "found" : ""}>
               <input type="checkbox" id="animal1" name="animal1" value="Rabbit" checked={foundAnimals["rabbit"]} disabled/>
@@ -172,7 +184,7 @@ function App() {
           </div>
           <button className="next-pic-button" onClick={getNext}>next picture</button>
         </div>
-        <h1 className="instructions">{allFound ? "Finished in " + finalTime + " seconds": "Each picture has 1 animal. Tag their heads."}</h1>
+        <h1 className="instructions">{allFound ? "Finished in " + finalTime.toFixed(1) + " seconds": "Each picture has 1 animal. Tag their heads."}</h1>
       </div>
 
       {null !== myRef.current && <div className={wrongAnswer ? "target-box wrong" : "target-box"} 

@@ -143,6 +143,27 @@ select.decorated option:hover {
   height: auto;
 }
 
+.score-container {
+  height: 100%;
+  margin: auto;
+  margin-left: 1rem;
+  background-color: white;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.score-container > h3 {
+  text-decoration: underline;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.score-row {
+  margin: auto;
+  margin-top: 5px;
+}
+
 @media only screen and (max-width: 750px) {
   .placeholder {
     width: 100vw;
