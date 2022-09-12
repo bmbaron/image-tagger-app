@@ -13,7 +13,7 @@ const StartGameModal = ({ highScores, hideModal }) => {
 						<li>Each picture has 1 hidden animal.</li>
 						<li>Label the animals as fast as you can.</li>
 					<br/>
-					Add your name to the <strong>leaderboard</strong> if you get a top time!
+					If you get a top time, you can add your name to the <strong>leaderboard</strong>!
 				</p>
 				<div className="bottom-content">
 					<ScoreTable highScores={highScores} />
@@ -21,7 +21,7 @@ const StartGameModal = ({ highScores, hideModal }) => {
 						className="button start-button"
 						onClick={hideModal}
 					>
-						start game
+						begin
 					</button>
 				</div>
 			</div>

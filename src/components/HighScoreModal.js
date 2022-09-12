@@ -28,7 +28,7 @@ const HighScoreModal = ({ finalTime }) => {
 				></input>
 				<input
 					type="text"
-					placeholder={`your time: ${finalTime}`}
+					placeholder={`${finalTime} seconds`}
 					disabled
 				></input>
 				<button
@@ -36,7 +36,7 @@ const HighScoreModal = ({ finalTime }) => {
 					className="button submit-button"
 					style={{background: updatedScore && 'green'}}
 				>
-					{updatedScore ? "success" : "submit high score"}
+					{updatedScore ? "success" : "submit"}
 				</button>
 			</form>
 		</div>

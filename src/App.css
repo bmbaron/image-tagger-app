@@ -29,12 +29,6 @@
   filter: blur(5px);
 }
 
-.placeholder {
-  margin: auto;
-  width: auto;
-  height: 100vh;
-}
-
 .status-box {
   position: fixed;
   top: 0;
@@ -47,6 +41,7 @@
   background-color: rgba(192, 195, 192, 0.5);
   padding: 0;
   height: 5rem;
+  border: none !important;
 }
 
 .status-box > h1 {
@@ -59,18 +54,8 @@
   width: 50px;
   height: 50px;
   background: none;
-  border: 4px solid red;
-  border-radius: 10px;
+  border: 3px solid red;
   padding-right: 15px;
-}
-
-select.decorated {
-  overflow: hidden;
-  margin-top: 0px;
-}
-
-select.decorated option:hover {
-  box-shadow: 0 0 10px 100px #8fcce2 inset;
 }
 
 @keyframes wrong-animation {
@@ -79,8 +64,14 @@ select.decorated option:hover {
 }
 
 @keyframes correct-animation {
-  from {background-color: green;}
-  to {background-color: none;}
+  from {
+    background-color: green;
+    border: 4px solid green;
+  }
+  to {
+    background-color: none;
+    border: 4px solid transparent;
+  }
 }
 
 .wrong {
@@ -125,24 +116,34 @@ select.decorated option:hover {
 
 
 .timer-elements .submit-score-button {
-  position: relative;
   margin: auto;
   margin-left: 2rem;
   width: 140px;
-  height: 60px;
+  height: 50px;
   background-color: rgb(224, 41, 224);
   animation-name: winning-animation;
   animation-duration: 2s;
 }
 
+.play-again-button {
+  margin: auto;
+  margin-left: 2rem;
+  width: 140px;
+  height: 50px;
+  background-color: rgb(41, 93, 224);
+}
+
 .score-container {
   height: 100%;
   margin: auto;
-  padding: 20px;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .score-container > h1 {
-  color: rgb(41, 108, 224);
+  color: black;
   margin: 0;
   margin-top: 0px;
   margin-bottom: 15px;
@@ -202,11 +203,11 @@ select.decorated option:hover {
 }
 
 .score-modal {
-  width: 50%;
-  height: 20%;
   position: fixed;
-  top: 25%;
-  left: 25%;
+  top: 15rem;
+  width: 30%;
+  margin-left: 35%;
+  height: auto;
   background-color:rgba(192, 195, 192, 0.5);
   border-radius: 10px;
 }
@@ -214,15 +215,18 @@ select.decorated option:hover {
 .score-modal .input-score-container {
   display: flex;
   flex-direction: column;
-  padding: 3%;
+  padding: 5%;
 }
 
 .score-modal .input-score-container > input {
   margin: auto;
   margin-bottom: 10px;
-  width: auto;
+  width: 200px;
   height: 2rem;
   font-size: 1.5rem;
+  border-radius: 5px;
+  text-indent: 10px;
+  background-color: white;
 }
 
 .score-modal .input-score-container .submit-button {
@@ -232,17 +236,13 @@ select.decorated option:hover {
 }
 
 @media only screen and (max-width: 750px) {
-  .placeholder {
-    width: 100vw;
-    height: auto;
-  }
   .start-modal {
     position: relative;
     top: 0;
-    left: auto;
-    height: 90%;
-    width: 70%;
+    left: 0;
+    width: 80%;
     margin: auto;
+    overflow: hidden;
   }
   .start-modal .instructions {
     width: 80%;
@@ -250,23 +250,23 @@ select.decorated option:hover {
     font-size: 1.2rem;
   }
   .start-modal .bottom-content {
-    width: 100%;
+    width: 95%;
+    padding: 0;
+    margin: auto;
     margin-top: 0.5rem;
     flex-direction: column;
-  }
-  .start-modal .bottom-content {
     font-size: 0.7rem;
   }
   .start-modal .bottom-content .start-button {
+    margin: auto;
     margin-bottom: 1rem;
     height: 50px;
     width: 50%;
   }
 
   .score-modal {
-    position: fixed;
-    top: 20%;
-    left: 15%;
+    top: 30%;
+    margin-left: 15%;
     width: 70%;
     height: auto;
   }

@@ -83,7 +83,6 @@ function App() {
   }
 
   function findClickLocation(event) {
-    if(null !== myRef.current) {
       if(imgWidth === 0 && imgHeight === 0) {
         setImgWidth(myRef.current.clientWidth)
         setImgHeight(myRef.current.clientHeight)
@@ -108,7 +107,6 @@ function App() {
       else {
         setFound(false)
       }
-    }
   }
 
   function checkFunction(event) {
@@ -168,6 +166,9 @@ function App() {
     setHighScoreModal(prev => !prev)
   }
 
+  function reloadGame() {
+    window.location.reload()
+  }
 
   return (
     <div className="App">
@@ -193,13 +194,20 @@ function App() {
                 maxTime={highScores[2].time}
               />
               {finalTime !== 1000 && 
+                <>
                 <button
                   className="button submit-score-button"
                   style={{display: finalTime < highScores[2].time ? 'block' : 'none' }}
                   onClick={toggleHighScoreModal}
                 >
-                  {highScoreModal ? "close" : "add your name"}
+                  {highScoreModal ? "cancel" : "submit high score"}</button>
+                <button
+                  className="button play-again-button"
+                  onClick={reloadGame}
+                >
+                  play again
                 </button>
+                </>
               }
             </div>
             : 
@@ -210,7 +218,7 @@ function App() {
       </div>
       }
 
-      {!startGameModal && <div className={wrongAnswer ? "target-box wrong" : "target-box"} 
+      {!startGameModal && <div className={correctAnswer ? "target-box correct" : (wrongAnswer ? "target-box wrong" : "target-box")} 
         //don't show when loading image, position in middle of screen when image loads, position at user's click after 
         style={{
           display: highScoreModal ? 'none' : 'block',
