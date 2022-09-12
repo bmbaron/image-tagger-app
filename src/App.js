@@ -1,16 +1,15 @@
 import React, { useState, useRef, useEffect, memo } from 'react';
 import './App.css';
 import { getImages, getHighScores } from './components/firebaseConnect'
-import placeholder from './components/loading-image.png'
 import Timer from './components/Timer'
-import ScoreTable from './components/ScoreTable'
-import Modal from './components/Modal'
+// import ScoreTable from './components/ScoreTable'
+import StartGameModal from './components/StartGameModal'
+import HighScoreModal from './components/HighScoreModal'
 
 function App() {
 
   let myRef = useRef(null)
 
-  const [isLoading, setIsLoading] = useState(true)
   const [startTimer, setStartTimer] = useState(false)
   const [finalTime, setFinalTime] = useState(1000)
 
@@ -34,7 +33,10 @@ function App() {
   const [allFound, setAllFound] = useState(false)
   const [wrongAnswer, setWrongAnswer] = useState(false)
   const [correctAnswer, setCorrectAnswer] = useState(false)
-  const [openModal, setOpenModal] = useState(false)
+
+  //modals
+  const [startGameModal, setStartGameModal] = useState(true)
+  const [highScoreModal, setHighScoreModal] = useState(false)
 
   useEffect(() => {
     getImages().then((res) => {
@@ -134,7 +136,6 @@ function App() {
   function getNext() {
     if(null !== imageData) {
       setClickLocation([0,0])
-      setIsLoading(true)
       setImage(imageData[imageCounter].url)
       setAnimal(imageData[imageCounter].animal)
       setCoords(imageData[imageCounter].coords)
@@ -152,31 +153,34 @@ function App() {
     return <img
             src={src}
             ref={myRef}
-            onLoad={() => setIsLoading(false)}
             onClick={(e) => findClickLocation(e)}
             alt="animal"
-            className={openModal ? "animal-image blurred-image" : "animal-image"} 
+            className={highScoreModal ? "animal-image blurred-image" : "animal-image"} 
+            style={{display: startGameModal ? 'none' : 'block'}}
           />;
   });
 
-  function toggleModal() {
-    setOpenModal(prev => !prev)
+  function toggleStartGameModal() {
+    setStartGameModal(prev => !prev)
+  }
+
+  function toggleHighScoreModal() {
+    setHighScoreModal(prev => !prev)
   }
 
 
   return (
     <div className="App">
-      <img
-        className="placeholder"
-        alt="placeholder"
-        src={placeholder}
-        style={{ display: isLoading ? "block" : "none" }}
-      />
       <Image 
         src={image}
-        style={{display: isLoading ? "none" : "block"}}
       />
-      <div className="info">
+      {startGameModal &&
+        <StartGameModal
+          highScores={highScores}
+          hideModal={toggleStartGameModal}
+        />
+      }
+      {!startGameModal && <div className="info">
         <div
           className={correctAnswer ? "status-box correct": "status-box"}
           style={{ backgroundColor: allFound && 'rgba(31, 222, 53, 0.5)' }}
@@ -192,39 +196,24 @@ function App() {
                 <button
                   className="button submit-score-button"
                   style={{display: finalTime < highScores[2].time ? 'block' : 'none' }}
-                  onClick={toggleModal}
+                  onClick={toggleHighScoreModal}
                 >
-                  {openModal ? "close" : "add your name"}
+                  {highScoreModal ? "close" : "add your name"}
                 </button>
               }
             </div>
             : 
-            <h1 className="status-title">Hidden Animals</h1>
+            <h1 className="status-title">click to start</h1>
           }
-          <ScoreTable highScores={highScores} />
-          <div className="animal-targets">
-          <div className={foundAnimals["rabbit"] ? "found" : ""}>
-              <input type="checkbox" id="animal1" name="animal1" value="Rabbit" checked={foundAnimals["rabbit"]} disabled/>
-              <label htmlFor="animal1">picture 1</label>
-            </div>
-            <div className={foundAnimals["snake"] ? "found" : ""}>
-              <input type="checkbox" id="animal2" name="animal2" value="Snake" checked={foundAnimals["snake"]} disabled/>
-              <label htmlFor="animal2">picture 2</label>
-            </div>
-            <div className={foundAnimals["spider"] ? "found" : ""}>
-              <input type="checkbox" id="animal3" name="animal3" value="Spider" checked={foundAnimals["spider"]} disabled/>
-              <label htmlFor="animal3">picture 3</label>
-            </div>
-          </div>
-          <button className="button next-pic-button" onClick={getNext}>next picture</button>
+          {/* <button className="button next-pic-button" onClick={getNext}>next picture</button> */}
         </div>
-        <h1 className="instructions">{allFound ? "Finished in " + finalTime + " seconds": "Each picture has 1 animal. Tag their heads."}</h1>
       </div>
+      }
 
-      {null !== myRef.current && <div className={wrongAnswer ? "target-box wrong" : "target-box"} 
+      {!startGameModal && <div className={wrongAnswer ? "target-box wrong" : "target-box"} 
         //don't show when loading image, position in middle of screen when image loads, position at user's click after 
         style={{
-          display: (isLoading || openModal) ? 'none' : 'block',
+          display: highScoreModal ? 'none' : 'block',
           left: clickLocation[0] === 0 ? (window.innerWidth / 2) - 25 : clickLocation[0]*imgWidth+marginLeft,
           top: clickLocation[0] === 0 ? (window.innerHeight / 2) - 25 : clickLocation[1]*imgHeight,
         }}
@@ -243,11 +232,11 @@ function App() {
           <option value="spider">spider</option>
         </select>
       </div>}
-      <Modal
-        key={Math.random()}
-        finalTime={finalTime}
-        openModal={openModal}
-      />
+      {highScoreModal && 
+        <HighScoreModal
+          finalTime={finalTime}
+        />
+      }
     </div>
   );
 }

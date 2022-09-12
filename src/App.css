@@ -43,52 +43,15 @@
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
+  height: auto;
   background-color: rgba(192, 195, 192, 0.5);
   padding: 0;
+  height: 5rem;
 }
 
 .status-box > h1 {
-  width: 100px;
+  width: auto;
   margin: auto;
-}
-
-.status-box > * {
-  margin: auto;
-  margin-bottom: 2rem;
-}
-
-.animal-targets {
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(41, 108, 224);
-  margin: 0;
-  padding: 1rem;
-}
-
-.animal-targets > *{
-  display: flex;
-  font-size: 1.4rem;
-  padding: 0.1rem;
-}
-
-.animal-targets label {
-  margin-top: -4px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.animal-targets .found {
-  color: white;
-}
-
-input[type=checkbox] {
-  transform: scale(1.5);
-}
-
-.next-pic-button {
-  margin: auto;
-  width: 120px;
-  height: 40px;
 }
 
 .target-box {
@@ -130,29 +93,21 @@ select.decorated option:hover {
   animation-duration: 3s;
 } 
 
-.instructions {
-  margin: auto;
-  line-height: 5rem;
-}
-
 .timer-elements {
   display: flex;
-  flex-direction: column;
 }
+
 .timer-elements .timer-box {
   margin: auto;
-  margin-top: 10px;
   width: 100px;
   background: white;
   border-radius: 5px;
 }
 
 .timer-elements .timer-box > h1 {
-  padding: 3px;
   width: auto;
   margin: auto;
   font-variant-numeric: tabular-nums;
-  height: auto;
 }
 
 .timer-elements .winning-time {
@@ -170,10 +125,11 @@ select.decorated option:hover {
 
 
 .timer-elements .submit-score-button {
+  position: relative;
   margin: auto;
-  margin-top: 10px;
+  margin-left: 2rem;
   width: 140px;
-  height: 40px;
+  height: 60px;
   background-color: rgb(224, 41, 224);
   animation-name: winning-animation;
   animation-duration: 2s;
@@ -182,25 +138,70 @@ select.decorated option:hover {
 .score-container {
   height: 100%;
   margin: auto;
-  margin-left: 1rem;
-  background-color: white;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 20px;
 }
 
-.score-container > h3 {
-  text-decoration: underline;
+.score-container > h1 {
+  color: rgb(41, 108, 224);
   margin: 0;
-  margin-top: 10px;
+  margin-top: 0px;
+  margin-bottom: 15px;
 }
 
 .score-row {
+  font-size: 1.2rem;
+  color: white;
   margin: auto;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
-.modal {
+.hidden-modal {
+  display: none;
+}
+
+.start-modal {
+  width: 70%;
+  height: auto;
+  position: fixed;
+  top: 10%;
+  left: 15%;
+  background-color:rgba(192, 195, 192, 0.5);
+  padding: 2rem;
+  border-radius: 20px;
+}
+
+.start-modal .instructions {
+  padding: 1.5rem;
+  width: 70%;
+  margin: auto;
+  background-color: white;
+  line-height: normal;
+  font-size: 1.5rem;
+  border-radius: 20px;
+}
+
+.start-modal .instructions > li{
+  margin: auto;
+  list-style: none;
+}
+
+.start-modal .bottom-content {
+  background-color: rgba(219, 48, 219, 0.7);
+  width: 70%;
+  margin: auto;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 20px;
+}
+
+.start-modal .bottom-content .start-button {
+  margin: auto;
+  width: 100px;
+  height: 100px;
+}
+
+.score-modal {
   width: 50%;
   height: 20%;
   position: fixed;
@@ -210,17 +211,13 @@ select.decorated option:hover {
   border-radius: 10px;
 }
 
-.hidden-modal {
-  display: none;
-}
-
-.modal .input-score-container {
+.score-modal .input-score-container {
   display: flex;
   flex-direction: column;
   padding: 3%;
 }
 
-.modal .input-score-container > input {
+.score-modal .input-score-container > input {
   margin: auto;
   margin-bottom: 10px;
   width: auto;
@@ -228,7 +225,7 @@ select.decorated option:hover {
   font-size: 1.5rem;
 }
 
-.modal .input-score-container .submit-button {
+.score-modal .input-score-container .submit-button {
   margin: auto;
   height: 40px;
   width: auto;
@@ -239,11 +236,39 @@ select.decorated option:hover {
     width: 100vw;
     height: auto;
   }
-  .instructions {
-    margin-left: 20px;
-    margin-right: 20px;
-    line-height: 2rem;
-    font-size: 1.5rem;
+  .start-modal {
+    position: relative;
+    top: 0;
+    left: auto;
+    height: 90%;
+    width: 70%;
+    margin: auto;
+  }
+  .start-modal .instructions {
+    width: 80%;
+    padding-top: 0.5rem;
+    font-size: 1.2rem;
+  }
+  .start-modal .bottom-content {
+    width: 100%;
+    margin-top: 0.5rem;
+    flex-direction: column;
+  }
+  .start-modal .bottom-content {
+    font-size: 0.7rem;
+  }
+  .start-modal .bottom-content .start-button {
+    margin-bottom: 1rem;
+    height: 50px;
+    width: 50%;
+  }
+
+  .score-modal {
+    position: fixed;
+    top: 20%;
+    left: 15%;
+    width: 70%;
+    height: auto;
   }
 }
 

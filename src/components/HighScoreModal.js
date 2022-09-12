@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { addHighScore } from './firebaseConnect'
 
-const Modal = ({ finalTime, openModal }) => {
+const HighScoreModal = ({ finalTime }) => {
 
 	const [name, setName] = useState('')
 	const [updatedScore, setUpdatedScore] = useState(false)
@@ -17,7 +17,7 @@ const Modal = ({ finalTime, openModal }) => {
 	}
 	
 	return (
-		<div className={openModal ? "modal" : "hidden-modal"}>
+		<div className="score-modal">
 			<form className="input-score-container" onSubmit={handleSubmit}>
 				<input
 					type="text"
@@ -43,4 +43,4 @@ const Modal = ({ finalTime, openModal }) => {
 	);
 };
 
-export default Modal;
+export default HighScoreModal;
