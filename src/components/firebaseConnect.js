@@ -8,6 +8,7 @@ import {
   getFirestore,
   collection,
 	getDocs,
+	addDoc
 } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
@@ -73,3 +74,18 @@ export async function getHighScores() {
 
   return top3scores
 }
+
+export async function addHighScore(name, finalTime) {
+	if(name && finalTime) {
+		const testRef = collection(db, 'highscores');
+		addDoc(testRef, {
+			"name": name,
+			"time": finalTime,
+		})
+		.then(() => {
+			window.location.reload();
+		})
+		.catch((error) => console.log("fail: " + error))
+	}
+}
+

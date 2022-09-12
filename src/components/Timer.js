@@ -6,7 +6,7 @@ function Timer ({endTimer, setFinalTime, maxTime}) {
 	
 	useEffect(() => {
 		setTimeout(() => {
-			!endTimer ? setCounter(counter + 0.1): setFinalTime(counter)
+			!endTimer ? setCounter(counter + 0.1): setFinalTime(Math.round( counter * 1e2 ) / 1e2)
 		}, 100);
 	}, [counter, endTimer, setFinalTime])
 

@@ -11,6 +11,24 @@
   cursor: pointer;
 }
 
+.button {
+  border: 0;
+  background-color: rgb(41, 108, 224);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.blurred-image {
+  filter: blur(5px);
+}
+
 .placeholder {
   margin: auto;
   width: auto;
@@ -71,17 +89,6 @@ input[type=checkbox] {
   margin: auto;
   width: 120px;
   height: 40px;
-  border: 0;
-  background-color: rgb(41, 108, 224);
-  color: white;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border-radius: 5px;
-}
-
-.next-pic-button:hover {
-  cursor: pointer;
-  transform: scale(1.1);
 }
 
 .target-box {
@@ -157,7 +164,7 @@ select.decorated option:hover {
 }
 
 @keyframes winning-animation {
-  from {transform: scale(2);}
+  from {transform: scale(1.7);}
   to {transform: scale(1);}
 }
 
@@ -167,19 +174,9 @@ select.decorated option:hover {
   margin-top: 10px;
   width: 140px;
   height: 40px;
-  border: 0;
   background-color: rgb(224, 41, 224);
-  color: white;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border-radius: 5px;
   animation-name: winning-animation;
-  animation-duration: 3s;
-}
-
-.timer-elements .submit-score-button:hover {
-  cursor: pointer;
-  transform: scale(1.1);
+  animation-duration: 2s;
 }
 
 .score-container {
@@ -201,6 +198,40 @@ select.decorated option:hover {
 .score-row {
   margin: auto;
   margin-top: 5px;
+}
+
+.modal {
+  width: 50%;
+  height: 20%;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  background-color:rgba(192, 195, 192, 0.5);
+  border-radius: 10px;
+}
+
+.hidden-modal {
+  display: none;
+}
+
+.modal .input-score-container {
+  display: flex;
+  flex-direction: column;
+  padding: 3%;
+}
+
+.modal .input-score-container > input {
+  margin: auto;
+  margin-bottom: 10px;
+  width: auto;
+  height: 2rem;
+  font-size: 1.5rem;
+}
+
+.modal .input-score-container .submit-button {
+  margin: auto;
+  height: 40px;
+  width: auto;
 }
 
 @media only screen and (max-width: 750px) {
