@@ -128,14 +128,19 @@ select.decorated option:hover {
   line-height: 5rem;
 }
 
-.timer-box {
+.timer-elements {
+  display: flex;
+  flex-direction: column;
+}
+.timer-elements .timer-box {
   margin: auto;
+  margin-top: 10px;
   width: 100px;
   background: white;
   border-radius: 5px;
 }
 
-.timer-box > h1 {
+.timer-elements .timer-box > h1 {
   padding: 3px;
   width: auto;
   margin: auto;
@@ -143,12 +148,38 @@ select.decorated option:hover {
   height: auto;
 }
 
-.winning-time {
-  background-color: green;
+.timer-elements .winning-time {
+  color: green;
 }
 
-.losing-time {
-  background-color: red;
+.timer-elements .losing-time {
+  color: red;
+}
+
+@keyframes winning-animation {
+  from {transform: scale(2);}
+  to {transform: scale(1);}
+}
+
+
+.timer-elements .submit-score-button {
+  margin: auto;
+  margin-top: 10px;
+  width: 140px;
+  height: 40px;
+  border: 0;
+  background-color: rgb(224, 41, 224);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  animation-name: winning-animation;
+  animation-duration: 3s;
+}
+
+.timer-elements .submit-score-button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 .score-container {

@@ -11,7 +11,7 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(true)
   const [startTimer, setStartTimer] = useState(false)
-  const [finalTime, setFinalTime] = useState(0.0)
+  const [finalTime, setFinalTime] = useState(1000)
 
   const [imageData, setImageData] = useState([])
   const [highScores, setHighScores] = useState([])
@@ -85,6 +85,7 @@ function App() {
         setImgHeight(myRef.current.clientHeight)
         setStartTimer(true)
       }
+
       let boxStartX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)-25)/myRef.current.clientWidth).toFixed(2))
       let boxEndX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)+50)/myRef.current.clientWidth).toFixed(2))
       let boxStartY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)-25)/myRef.current.clientHeight).toFixed(2))
@@ -167,7 +168,7 @@ function App() {
           style={{ backgroundColor: allFound && 'rgba(31, 222, 53, 0.5)' }}
         >
           {startTimer ? 
-            <div>
+            <div className="timer-elements">
               <Timer
                 endTimer={allFound}
                 setFinalTime={setFinalTime}
@@ -175,6 +176,7 @@ function App() {
               />
               {finalTime !== 0 && 
                 <button
+                  className="submit-score-button"
                   style={{display: finalTime < highScores[2].time ? 'block' : 'none' }}
                   // onClick={setOpenModal(true)}
                 >
