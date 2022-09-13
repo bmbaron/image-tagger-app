@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, memo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 import { getImages, getHighScores } from './components/firebaseConnect'
 import Timer from './components/Timer'
@@ -12,8 +12,10 @@ function App() {
 
   const [startTimer, setStartTimer] = useState(false)
   const [finalTime, setFinalTime] = useState(1000)
+  const [firstClick, setFirstClick] = useState(true)
 
   const [imageData, setImageData] = useState([])
+  const [imagesArray, setImagesArray] = useState([])
   const [highScores, setHighScores] = useState([])
 
   const [image, setImage] = useState("")
@@ -69,6 +71,19 @@ function App() {
   }, [startTimer, finalTime, highScores])
 
   function initializeImage(res) {
+    setImagesArray(
+      res.map((image) => {
+        return (<img
+                src={image.url}
+                ref={myRef}
+                onClick={(e) => findClickLocation(e)}
+                alt="animal"
+                className={highScoreModal ? "animal-image blurred-image" : "animal-image"} 
+                style={{display: startGameModal ? 'none' : 'block'}}
+              />)
+      })
+    )
+
     setImage(res[0].url)
     setAnimal(res[0].animal)
     setCoords(res[0].coords)
@@ -76,14 +91,16 @@ function App() {
   }
   
   function handleResize() {
-    if(null !== myRef.current) {
+    if(myRef.current.clientWidth !== 0 && myRef.current.clientHeight !== 0) {
       setImgWidth(myRef.current.clientWidth)
       setImgHeight(myRef.current.clientHeight)
     }
   }
 
   function findClickLocation(event) {
-      if(imgWidth === 0 && imgHeight === 0) {
+
+      if(firstClick) {
+        setFirstClick(false)
         setImgWidth(myRef.current.clientWidth)
         setImgHeight(myRef.current.clientHeight)
         setStartTimer(true)
@@ -147,16 +164,16 @@ function App() {
     }
   }
 
-  const Image = memo(function Image({ src }) {
-    return <img
-            src={src}
-            ref={myRef}
-            onClick={(e) => findClickLocation(e)}
-            alt="animal"
-            className={highScoreModal ? "animal-image blurred-image" : "animal-image"} 
-            style={{display: startGameModal ? 'none' : 'block'}}
-          />;
-  });
+  // const Image = memo(function Image({ src }) {
+  //   return <img
+  //           src={src}
+  //           ref={myRef}
+  //           onClick={(e) => findClickLocation(e)}
+  //           alt="animal"
+  //           className={highScoreModal ? "animal-image blurred-image" : "animal-image"} 
+  //           style={{display: startGameModal ? 'none' : 'block'}}
+  //         />;
+  // });
 
   function toggleStartGameModal() {
     setStartGameModal(prev => !prev)
@@ -172,9 +189,7 @@ function App() {
 
   return (
     <div className="App">
-      <Image 
-        src={image}
-      />
+      {imagesArray[imageCounter-1]}
       {startGameModal &&
         <StartGameModal
           highScores={highScores}

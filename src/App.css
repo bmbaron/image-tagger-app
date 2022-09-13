@@ -270,23 +270,15 @@
     width: 70%;
     height: auto;
   }
+  .status-box > *{
+    width: 90%;
+  }
+  .status-box button {
+    font-size: 0.8rem;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-  .animal-targets {
-    padding: 0rem;
-    padding-top: 5px;
-  }
-  .animal-targets > *{
-    font-size: 1rem;
-  }
-  .animal-targets label {
-    margin-top: -2px;
-    margin-left: 2px;
-  }
-  input[type=checkbox] {
-    transform: scale(1);
-  }
   .animal-image {
     width: 100vw;
     height: 100vh;
@@ -297,17 +289,5 @@
 @media only screen and (max-width: 400px) {
   .status-box > h1 {
     font-size: 1.5rem;
-  }
-  .animal-targets {
-    padding: 0rem;
-    padding-top: 5px;
-  }
-  .animal-targets > *{
-    font-size: 0.7rem;
-  }
-  .animal-targets label {
-    margin-top: 4px;
-    margin-left: 2px;
-    margin-right: 4px;
   }
 }
