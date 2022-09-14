@@ -3,15 +3,15 @@ import React from 'react';
 function ScoreTable({ highScores }) {
 
 	const scoreRows = highScores.map((entry) => 
-		(<p 
-			key={Math.random()}
-			>
+		(
+			<p key={Math.random()}>
 				<span style={{fontWeight: 'bold'}}>{entry.name}</span> - {entry.time} seconds
-			</p>))
+			</p>
+		))
 
 	return (
 		<div>
-			{scoreRows ? scoreRows : "loading"}
+			{scoreRows}
 		</div>
 	);
 }
