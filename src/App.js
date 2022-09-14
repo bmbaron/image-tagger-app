@@ -1,12 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
-import { getImages, getHighScores } from './components/firebaseConnect'
+import { getImageData, getHighScores } from './components/firebaseConnect'
 import Timer from './components/Timer'
 // import ScoreTable from './components/ScoreTable'
 import StartGameModal from './components/StartGameModal'
 import HighScoreModal from './components/HighScoreModal'
 
+import rabbitImage from './images/hidden-rabbit.png'
+import spiderImage from './images/hidden-spider.png'
+import snakeImage from './images/hidden-snake.png'
+
+
 function App() {
+
+  const backgroundImages = [rabbitImage, spiderImage, snakeImage]
 
   let myRef = useRef(null)
 
@@ -15,10 +22,8 @@ function App() {
   const [firstClick, setFirstClick] = useState(true)
 
   const [imageData, setImageData] = useState([])
-  const [imagesArray, setImagesArray] = useState([])
   const [highScores, setHighScores] = useState([])
 
-  const [image, setImage] = useState("")
   const [animal, setAnimal] = useState("")
   const [coords, setCoords] = useState([])
   const [imageCounter, setImageCounter] = useState(0)
@@ -41,9 +46,10 @@ function App() {
   const [highScoreModal, setHighScoreModal] = useState(false)
 
   useEffect(() => {
-    getImages().then((res) => {
+      getImageData().then((res) => {
       setImageData(res)
-      initializeImage(res)
+      setAnimal(res[0].animal)
+      setCoords(res[0].coords)
     })
     getHighScores().then((res) => {
       setHighScores(res)
@@ -70,25 +76,6 @@ function App() {
     }
   }, [startTimer, finalTime, highScores])
 
-  function initializeImage(res) {
-    setImagesArray(
-      res.map((image) => {
-        return (<img
-                src={image.url}
-                ref={myRef}
-                onClick={(e) => findClickLocation(e)}
-                alt="animal"
-                className={highScoreModal ? "animal-image blurred-image" : "animal-image"} 
-                style={{display: startGameModal ? 'none' : 'block'}}
-              />)
-      })
-    )
-
-    setImage(res[0].url)
-    setAnimal(res[0].animal)
-    setCoords(res[0].coords)
-    setImageCounter(1)
-  }
   
   function handleResize() {
     if(myRef.current.clientWidth !== 0 && myRef.current.clientHeight !== 0) {
@@ -111,9 +98,6 @@ function App() {
       let boxStartY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)-25)/myRef.current.clientHeight).toFixed(2))
       let boxEndY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)+50)/myRef.current.clientHeight).toFixed(2))
 
-      // console.log((event.clientX-event.currentTarget.getBoundingClientRect().left)/myRef.current.clientWidth)
-      // console.log((event.clientY-event.currentTarget.getBoundingClientRect().top)/myRef.current.clientHeight)
-
       setClickLocation([boxStartX, boxStartY])
       setMarginLeft(event.currentTarget.getBoundingClientRect().left)
 
@@ -127,16 +111,13 @@ function App() {
   }
 
   function checkFunction(event) {
-    // console.log(found)
     if(found) {
       if (event.target.value === animal) {
         setFoundAnimals(prev => ({...prev, [event.target.value]: true}))
         setCorrectAnswer(true)
-        setTimeout(()=>{
-          if (Object.values(foundAnimals).filter(x => x === true).length < 2) {
-            getNext()
-          }
-        }, 1000)
+        if(imageCounter < 2) {
+          getNext()
+        }
       }
       else {
         setWrongAnswer(true)
@@ -151,32 +132,15 @@ function App() {
   function getNext() {
     if(null !== imageData) {
       setClickLocation([0,0])
-      setImage(imageData[imageCounter].url)
-      setAnimal(imageData[imageCounter].animal)
-      setCoords(imageData[imageCounter].coords)
+      setAnimal(imageData[imageCounter+1].animal)
+      setCoords(imageData[imageCounter+1].coords)
+      setImageCounter(prev => prev + 1)
       setFound(false)
-    }
-    if(imageCounter === 2) {
-      setImageCounter(0)
-    }
-    else {
-      setImageCounter(imageCounter+1)
     }
   }
 
-  // const Image = memo(function Image({ src }) {
-  //   return <img
-  //           src={src}
-  //           ref={myRef}
-  //           onClick={(e) => findClickLocation(e)}
-  //           alt="animal"
-  //           className={highScoreModal ? "animal-image blurred-image" : "animal-image"} 
-  //           style={{display: startGameModal ? 'none' : 'block'}}
-  //         />;
-  // });
-
   function toggleStartGameModal() {
-    setStartGameModal(prev => !prev)
+    setStartGameModal(false)
   }
 
   function toggleHighScoreModal() {
@@ -189,7 +153,14 @@ function App() {
 
   return (
     <div className="App">
-      {imagesArray[imageCounter-1]}
+      <img 
+        src={backgroundImages[imageCounter]}
+        alt="animal hidden"
+        className={highScoreModal ? "animal-image blurred-image" : "animal-image"} 
+        style={{display: startGameModal ? 'none' : 'block'}}
+        onClick={(e) => findClickLocation(e)}
+        ref={myRef}>
+      </img>
       {startGameModal &&
         <StartGameModal
           highScores={highScores}
@@ -251,8 +222,8 @@ function App() {
         >
           <option value="select">select</option>
           <option value="rabbit">rabbit</option>
-          <option value="snake">snake</option>
           <option value="spider">spider</option>
+          <option value="snake">snake</option>
         </select>
       </div>}
       {highScoreModal && 

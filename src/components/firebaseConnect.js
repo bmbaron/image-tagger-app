@@ -25,14 +25,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
 
-export async function getImages() {
+export async function getImageData() {
 	const imageData = []
-  const imageUrlPrefix = 'https://firebasestorage.googleapis.com/v0/b/image-tagger-2c2fa.appspot.com/o/images%2F'
-  const images = [
-    imageUrlPrefix + 'hidden-bunny.png?alt=media',
-    imageUrlPrefix + 'hidden-snake.png?alt=media',
-    imageUrlPrefix + 'hidden-spider.png?alt=media',
-  ]
 
 	console.log("getting firebase image data")
 	const articlesRef = collection(db, "images")
@@ -42,7 +36,6 @@ export async function getImages() {
 
 	querySnapshot.forEach((doc) => { 
 		imageData[counter] = {
-			url: images[counter],
 			animal: doc.data().animal,
 			coords: doc.data().coords
 		}
