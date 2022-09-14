@@ -99,10 +99,13 @@ function App() {
       let boxEndY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)+50)/myRef.current.clientHeight).toFixed(2))
 
       setClickLocation([boxStartX, boxStartY])
+      console.log(boxStartX, boxStartY)
+      console.log(coords[0], coords[1])
+
       setMarginLeft(event.currentTarget.getBoundingClientRect().left)
 
       //check if animal is within the target box 
-      if(boxStartX < coords[0] && coords[0] < boxEndX && boxStartY < coords[1] && coords[1] < boxEndY) {
+      if(boxStartX <= coords[0] && coords[0] <= boxEndX && boxStartY <= coords[1] && coords[1] <= boxEndY) {
         setFound(true)
       }
       else {
