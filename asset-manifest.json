@@ -1,13 +1,16 @@
 {
   "files": {
-    "main.css": "/image-tagger-app/static/css/main.df8d9a32.css",
-    "main.js": "/image-tagger-app/static/js/main.1af64e5e.js",
+    "main.css": "/image-tagger-app/static/css/main.2ee24737.css",
+    "main.js": "/image-tagger-app/static/js/main.0a929eda.js",
+    "static/media/hidden-snake.png": "/image-tagger-app/static/media/hidden-snake.25ee83554e993ba56f25.png",
+    "static/media/hidden-spider.png": "/image-tagger-app/static/media/hidden-spider.06298a1b04acc4e853af.png",
+    "static/media/hidden-rabbit.png": "/image-tagger-app/static/media/hidden-rabbit.02cd424a41f7cfe29edf.png",
     "index.html": "/image-tagger-app/index.html",
-    "main.df8d9a32.css.map": "/image-tagger-app/static/css/main.df8d9a32.css.map",
-    "main.1af64e5e.js.map": "/image-tagger-app/static/js/main.1af64e5e.js.map"
+    "main.2ee24737.css.map": "/image-tagger-app/static/css/main.2ee24737.css.map",
+    "main.0a929eda.js.map": "/image-tagger-app/static/js/main.0a929eda.js.map"
   },
   "entrypoints": [
-    "static/css/main.df8d9a32.css",
-    "static/js/main.1af64e5e.js"
+    "static/css/main.2ee24737.css",
+    "static/js/main.0a929eda.js"
   ]
 }
