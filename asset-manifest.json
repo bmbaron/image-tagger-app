@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/image-tagger-app/static/css/main.2cbeb61b.css",
-    "main.js": "/image-tagger-app/static/js/main.ddaa018e.js",
+    "main.js": "/image-tagger-app/static/js/main.fd097e71.js",
     "static/media/hidden-snake.png": "/image-tagger-app/static/media/hidden-snake.25ee83554e993ba56f25.png",
     "static/media/hidden-spider.png": "/image-tagger-app/static/media/hidden-spider.06298a1b04acc4e853af.png",
     "static/media/hidden-rabbit.png": "/image-tagger-app/static/media/hidden-rabbit.02cd424a41f7cfe29edf.png",
     "static/media/fish tutorial cropped.gif": "/image-tagger-app/static/media/fish tutorial cropped.2f8208d0a2fbf1de385c.gif",
     "index.html": "/image-tagger-app/index.html",
     "main.2cbeb61b.css.map": "/image-tagger-app/static/css/main.2cbeb61b.css.map",
-    "main.ddaa018e.js.map": "/image-tagger-app/static/js/main.ddaa018e.js.map"
+    "main.fd097e71.js.map": "/image-tagger-app/static/js/main.fd097e71.js.map"
   },
   "entrypoints": [
     "static/css/main.2cbeb61b.css",
-    "static/js/main.ddaa018e.js"
+    "static/js/main.fd097e71.js"
   ]
 }
