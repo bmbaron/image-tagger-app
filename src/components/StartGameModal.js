@@ -1,6 +1,6 @@
 import React from 'react';
 import ScoreTable from './ScoreTable'
-import tutorialGif from '../images/tutorial.gif'
+import tutorialGif from '../images/fish tutorial cropped.gif'
 import { Paper, Card, Button, Typography, Box, Grid, Fade } from '@mui/material';
 
 const StartGameModal = ({ highScores, hideModal }) => {
@@ -8,7 +8,7 @@ const StartGameModal = ({ highScores, hideModal }) => {
 	return (
 		<Paper className="start-modal" elevation={3}>
 			<Typography variant="h4" fontWeight="bold" mb={3}>Welcome to Animal Finder</Typography>
-				<Box mb={8}>
+				<Box mb={6}>
 						<Typography>
 							You will see 3 pictures.<br/>
 							Each picture has 1 hidden animal.<br/>
@@ -25,7 +25,7 @@ const StartGameModal = ({ highScores, hideModal }) => {
 					sx={{
 						margin: 'auto',
 						marginBottom: '4rem',
-						width: '70%',
+						width: {md: '60%', sm: '70%', xs: '100%'},
 						display: {
 							md: 'flex',
 							sm: 'inline-block'
@@ -38,9 +38,10 @@ const StartGameModal = ({ highScores, hideModal }) => {
 						<Card 
 							elevation={3}
 							style={{
-								margin: 'auto',
 								backgroundColor: "rgba(212,100,200, 0.2)",
 								padding: '1rem',
+								margin: 'auto',
+								width: {md: '80%', sm: '70%', xs: '100%'}
 							}}
 						>
 							<Typography
@@ -71,7 +72,7 @@ const StartGameModal = ({ highScores, hideModal }) => {
 						component="img"
 						src={tutorialGif}
 						alt="tutorial gif"
-						sx={{width: {md: '80%', sm: '70%', xs: 300}, margin: 'auto'}}
+						sx={{width: {md: '80%', sm: '70%', xs: '100%'}, margin: 'auto'}}
 					/>
 					<Typography className="tutorial-title">how to play </Typography>
 				</Box>

@@ -87,49 +87,30 @@
   display: flex;
 }
 
-.timer-elements .timer-box {
+.timer-box {
   margin: auto;
   width: 100px;
   background: white;
   border-radius: 5px;
 }
 
-.timer-elements .timer-box > h1 {
+.timer-box > h1 {
   width: auto;
   margin: auto;
   font-variant-numeric: tabular-nums;
 }
 
-.timer-elements .winning-time {
+.winning-time {
   color: green;
 }
 
-.timer-elements .losing-time {
+.losing-time {
   color: red;
 }
 
 @keyframes winning-animation {
   from {transform: scale(1.7);}
   to {transform: scale(1);}
-}
-
-
-.timer-elements .submit-score-button {
-  margin: auto;
-  margin-left: 2rem;
-  width: 140px;
-  height: 50px;
-  background-color: rgb(224, 41, 224);
-  animation-name: winning-animation;
-  animation-duration: 2s;
-}
-
-.play-again-button {
-  margin: auto;
-  margin-left: 2rem;
-  width: 140px;
-  height: 50px;
-  background-color: rgb(41, 93, 224);
 }
 
 .score-container {

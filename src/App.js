@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 import { getImageData, getHighScores } from './components/firebaseConnect'
-import Timer from './components/Timer'
-// import ScoreTable from './components/ScoreTable'
+import Header from './components/Header'
+
 import StartGameModal from './components/StartGameModal'
 import HighScoreModal from './components/HighScoreModal'
 
@@ -99,8 +99,8 @@ function App() {
       let boxEndY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)+50)/myRef.current.clientHeight).toFixed(2))
 
       setClickLocation([boxStartX, boxStartY])
-      console.log(boxStartX, boxStartY)
-      console.log(coords[0], coords[1])
+      // console.log(boxStartX, boxStartY)
+      // console.log(coords[0], coords[1])
 
       setMarginLeft(event.currentTarget.getBoundingClientRect().left)
 
@@ -150,10 +150,6 @@ function App() {
     setHighScoreModal(prev => !prev)
   }
 
-  function reloadGame() {
-    window.location.reload()
-  }
-
   return (
     <div className="App">
       <img 
@@ -170,43 +166,21 @@ function App() {
           hideModal={toggleStartGameModal}
         />
       }
-      {!startGameModal && <div className="info">
-        <div
-          className={correctAnswer ? "status-box correct": "status-box"}
-          style={{ backgroundColor: allFound && 'rgba(31, 222, 53, 0.5)' }}
+      {!startGameModal &&
+        <Header
+          correctAnswer={correctAnswer}
+          allFound={allFound}
+          showTimer={startTimer}
+          finalTime={finalTime}
+          setFinalTime={setFinalTime}
+          timeToBeat={highScores[2].time}
+          toggleHighScoreModal={toggleHighScoreModal}
+          highScoreModal={highScoreModal}
         >
-          {startTimer ? 
-            <div className="timer-elements">
-              <Timer
-                endTimer={allFound}
-                setFinalTime={setFinalTime}
-                maxTime={highScores[2].time}
-              />
-              {finalTime !== 1000 && 
-                <>
-                <button
-                  className="button submit-score-button"
-                  style={{display: finalTime < highScores[2].time ? 'block' : 'none' }}
-                  onClick={toggleHighScoreModal}
-                >
-                  {highScoreModal ? "cancel" : "submit high score"}</button>
-                <button
-                  className="button play-again-button"
-                  onClick={reloadGame}
-                >
-                  play again
-                </button>
-                </>
-              }
-            </div>
-            : 
-            <h1 className="status-title">click to start</h1>
-          }
           {/* <button className="button next-pic-button" onClick={getNext}>next picture</button> */}
-        </div>
-      </div>
+        </Header>
       }
-
+      {/* target box */}
       {!startGameModal && <div className={correctAnswer ? "target-box correct" : (wrongAnswer ? "target-box wrong" : "target-box")} 
         //don't show when loading image, position in middle of screen when image loads, position at user's click after 
         style={{
