@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 import { getImageData, getHighScores } from './components/firebaseConnect'
 import Header from './components/Header'
-
+import TargetBox from './components/TargetBox'
 import StartGameModal from './components/StartGameModal'
 import HighScoreModal from './components/HighScoreModal'
 
@@ -84,8 +84,7 @@ function App() {
     }
   }
 
-  function findClickLocation(event) {
-
+  function findClickLocation(event) {      
       if(firstClick) {
         setFirstClick(false)
         setImgWidth(myRef.current.clientWidth)
@@ -119,7 +118,9 @@ function App() {
         setFoundAnimals(prev => ({...prev, [event.target.value]: true}))
         setCorrectAnswer(true)
         if(imageCounter < 2) {
-          getNext()
+          setTimeout(() => {
+            getNext()
+          }, 1000);
         }
       }
       else {
@@ -160,49 +161,36 @@ function App() {
         onClick={(e) => findClickLocation(e)}
         ref={myRef}>
       </img>
-      {startGameModal &&
+      {startGameModal ?
         <StartGameModal
           highScores={highScores}
           hideModal={toggleStartGameModal}
         />
+        :
+        <>
+          <Header
+            correctAnswer={correctAnswer}
+            allFound={allFound}
+            showTimer={startTimer}
+            finalTime={finalTime}
+            setFinalTime={setFinalTime}
+            timeToBeat={highScores[2].time}
+            toggleHighScoreModal={toggleHighScoreModal}
+            highScoreModal={highScoreModal}
+          />
+          <TargetBox
+            correctAnswer={correctAnswer}
+	          wrongAnswer={wrongAnswer}
+	          highScoreModal={highScoreModal}
+	          clickLocation={clickLocation}
+            marginLeft={marginLeft}
+	          imgWidth={imgWidth}
+	          imgHeight={imgHeight} 
+	          checkFunction={checkFunction}
+            select={select}
+          />
+        </>
       }
-      {!startGameModal &&
-        <Header
-          correctAnswer={correctAnswer}
-          allFound={allFound}
-          showTimer={startTimer}
-          finalTime={finalTime}
-          setFinalTime={setFinalTime}
-          timeToBeat={highScores[2].time}
-          toggleHighScoreModal={toggleHighScoreModal}
-          highScoreModal={highScoreModal}
-        >
-          {/* <button className="button next-pic-button" onClick={getNext}>next picture</button> */}
-        </Header>
-      }
-      {/* target box */}
-      {!startGameModal && <div className={correctAnswer ? "target-box correct" : (wrongAnswer ? "target-box wrong" : "target-box")} 
-        //don't show when loading image, position in middle of screen when image loads, position at user's click after 
-        style={{
-          display: highScoreModal ? 'none' : 'block',
-          left: clickLocation[0] === 0 ? (window.innerWidth / 2) - 25 : clickLocation[0]*imgWidth+marginLeft,
-          top: clickLocation[0] === 0 ? (window.innerHeight / 2) - 25 : clickLocation[1]*imgHeight,
-        }}
-      >
-        <select
-          className="decorated"
-          id="animals"
-          name="animals"
-          onChange={(e) => checkFunction(e)}
-          style={{marginLeft: '4px'}}
-          value={select}
-        >
-          <option value="select">select</option>
-          <option value="rabbit">rabbit</option>
-          <option value="spider">spider</option>
-          <option value="snake">snake</option>
-        </select>
-      </div>}
       {highScoreModal && 
         <HighScoreModal
           finalTime={finalTime}

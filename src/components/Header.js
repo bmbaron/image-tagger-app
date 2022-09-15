@@ -24,7 +24,9 @@ const Header = ({
 			<AppBar
 				position="fixed"
 				className={correctAnswer ? 'correct' : ''}
-				sx={{backgroundColor: allFound && 'rgba(31, 222, 53, 0.5)'}}
+				sx={{
+					backgroundColor: allFound ? 'rgba(31, 222, 53, 0.5)' : 'rgba(25, 118, 210, 0.76)',
+				}}
 			>
         <Toolbar>
 					{showTimer ? 
