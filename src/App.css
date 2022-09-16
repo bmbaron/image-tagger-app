@@ -65,11 +65,9 @@
 @keyframes correct-animation {
   from {
     background-color: green;
-    border: 4px solid green;
   }
   to {
     background-color: none;
-    border: 4px solid transparent;
   }
 }
 
