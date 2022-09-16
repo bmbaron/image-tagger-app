@@ -6,9 +6,9 @@ import TargetBox from './components/TargetBox'
 import StartGameModal from './components/StartGameModal'
 import HighScoreModal from './components/HighScoreModal'
 
-import rabbitImage from './images/hidden-rabbit.png'
-import spiderImage from './images/hidden-spider.png'
-import snakeImage from './images/hidden-snake.png'
+import rabbitImage from './images/hidden-rabbit-min.png'
+import spiderImage from './images/hidden-spider-min.png'
+import snakeImage from './images/hidden-snake-min.png'
 
 
 function App() {
