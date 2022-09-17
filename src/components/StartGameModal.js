@@ -1,21 +1,24 @@
 import React from 'react';
 import ScoreTable from './ScoreTable'
 import tutorialGif from '../images/fish tutorial cropped.gif'
-import { Paper, Card, Button, Typography, Box, Grid, Fade } from '@mui/material';
+import forestImg from '../images/forest.jpeg'
+
+import { Paper, Card, Button, Typography, Box, Fade } from '@mui/material';
 
 const StartGameModal = ({ highScores, hideModal }) => {
 
 	return (
-		<Paper className="start-modal" elevation={3}>
-			<Typography variant="h4" fontWeight="bold" mb={3}>Welcome to Animal Finder</Typography>
-				<Box mb={6}>
-						<Typography>
+		<Box sx={{ backgroundImage: `url(${forestImg})`, marginLeft: {md: '5rem', sm: '2rem', xs: '1rem'}, marginRight: {md: '5rem', sm: '2rem', xs: '1rem'}, borderRadius: 5 }}>
+		<Paper className="start-modal" elevation={3} sx={{ backgroundColor: 'rgba(10, 100, 100, 0.7)', paddingBottom: "10px", borderRadius: 5,}}>
+			<Typography variant="h4" fontWeight="bold" color="white" mb={3} ml={1} mr={1}>Welcome to Animal Finder</Typography>
+				<Box mb={6} sx={{ color: 'white' }}>
+						<Typography fontSize={20}>
 							You will see 3 pictures.<br/>
 							Each picture has 1 hidden animal.<br/>
 							Label the animals as fast as you can.
 						</Typography>
 					<br/>
-					<Typography sx={{fontStyle: 'italic'}}>
+					<Typography fontSize={20} sx={{fontStyle: 'italic'}}>
 						Get a top time and add your name to the ...
 					</Typography>
 				</Box>
@@ -25,7 +28,7 @@ const StartGameModal = ({ highScores, hideModal }) => {
 					sx={{
 						margin: 'auto',
 						marginBottom: '4rem',
-						width: {md: '60%', sm: '70%', xs: '100%'},
+						width: {md: '60%', sm: '70%', xs: '90%'},
 						display: {
 							md: 'flex',
 							sm: 'inline-block'
@@ -38,10 +41,14 @@ const StartGameModal = ({ highScores, hideModal }) => {
 						<Card 
 							elevation={3}
 							style={{
-								backgroundColor: "rgba(212,100,200, 0.2)",
+								backgroundColor: "rgba(0,0,0,0.7)",
 								padding: '1rem',
 								margin: 'auto',
-								width: {md: '80%', sm: '70%', xs: '100%'}
+								width: 'fit-content',
+								paddingLeft: '2rem',
+								paddingRight: '2rem',
+								textAlign: 'center',
+								color: 'gold'
 							}}
 						>
 							<Typography
@@ -72,11 +79,12 @@ const StartGameModal = ({ highScores, hideModal }) => {
 						component="img"
 						src={tutorialGif}
 						alt="tutorial gif"
-						sx={{width: {md: '80%', sm: '70%', xs: '100%'}, margin: 'auto'}}
+						sx={{ width: {lg: '40%', md: '60%', sm: '70%', xs: '100%'}, margin: 'auto'}}
 					/>
-					<Typography className="tutorial-title">how to play </Typography>
+					<Typography className="tutorial-title" color="white" variant="h5">how to play </Typography>
 				</Box>
 		</Paper>
+		</Box>
 	);
 };
 
