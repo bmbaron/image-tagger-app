@@ -142,8 +142,8 @@
   position: relative;
   margin: auto;
   margin-top: 2rem;
-  width: 70%;
-  padding: 1rem;
+  width: 100%;
+  padding-top: 2rem;
 }
 
 .start-modal .instructions {
@@ -202,7 +202,6 @@
 @media only screen and (max-width: 750px) {
   .start-modal {
     margin-top: 0;
-    width: 80%;
   }
   .start-modal .instructions {
     width: 80%;
@@ -220,7 +219,7 @@
   .score-modal {
     top: 30%;
     margin-left: 15%;
-    width: 70%;
+    width: 100%;
     height: auto;
   }
   .status-box > *{
