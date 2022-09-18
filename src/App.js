@@ -10,6 +10,9 @@ import rabbitImage from './images/hidden-rabbit-min.png'
 import spiderImage from './images/hidden-spider-min.png'
 import snakeImage from './images/hidden-snake-min.png'
 
+import { Backdrop } from '@mui/material';
+
+
 
 function App() {
 
@@ -61,7 +64,7 @@ function App() {
     setTimeout(()=>{
       setWrongAnswer(false)
       setCorrectAnswer(false)
-    }, 3000)
+    }, 600)
   }, [wrongAnswer, correctAnswer])
 
   useEffect(() => {
@@ -120,7 +123,7 @@ function App() {
         if(imageCounter < 2) {
           setTimeout(() => {
             getNext()
-          }, 1000);
+          }, 600);
         }
       }
       else {
@@ -130,7 +133,7 @@ function App() {
     else {
       setWrongAnswer(true)
     }
-    setSelect("select")
+    setSelect("")
   }
 
   function getNext() {
@@ -153,6 +156,14 @@ function App() {
 
   return (
     <div className="App">
+      <Backdrop
+        sx={{ 
+          backgroundColor: 
+            correctAnswer ? 'rgba(0, 255, 0, 0.4)' 
+            : wrongAnswer && 'rgba(255, 0, 0, 0.4)'
+        }}
+        open={correctAnswer | wrongAnswer ? true : false}
+      />
       <img 
         src={backgroundImages[imageCounter]}
         alt="animal hidden"
@@ -170,6 +181,7 @@ function App() {
         <>
           <Header
             correctAnswer={correctAnswer}
+            wrongAnswer={wrongAnswer}
             allFound={allFound}
             showTimer={startTimer}
             finalTime={finalTime}

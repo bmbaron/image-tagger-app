@@ -4,6 +4,7 @@ import Timer from './Timer'
 
 const Header = ({
 	correctAnswer,
+	wrongAnswer,
 	allFound,
 	showTimer,
 	finalTime,
@@ -23,7 +24,7 @@ const Header = ({
 		>
 			<AppBar
 				position="fixed"
-				className={correctAnswer ? 'correct' : ''}
+				className={correctAnswer ? 'correct' : wrongAnswer ? 'wrong' : ''}
 				sx={{
 					backgroundColor: allFound ? 'rgba(31, 222, 53, 0.5)' : 'rgba(25, 118, 210, 0.76)',
 				}}
