@@ -16,9 +16,9 @@ const TargetBox = ({
 	return (
 		<Box sx={{
 			position: 'absolute',
-			background: 'rgba(255,0,0,0.8)',
+			background: {md: 'rgba(255,0,0,0.8)'},
 			borderRadius: '10px',
-			padding: '0.2rem',
+			padding: '0.05rem',
 			display: clickLocation[0] === 0 ? 'none' : !highScoreModal ? 'block' : 'none',
 			left: clickLocation[0] === 0 ? (window.innerWidth / 2) - 25 : clickLocation[0]*imgWidth+marginLeft,
 			top: clickLocation[0] === 0 ? (window.innerHeight / 2) - 25 : clickLocation[1]*imgHeight,
