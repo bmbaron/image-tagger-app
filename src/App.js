@@ -90,7 +90,7 @@ function App() {
 
   function findClickLocation(event) {     
         
-    //on mobile, this will zoom out when the user clicks, allowing them to easily open the select 
+    //this will zoom out when the user clicks, allowing them to easily open the select 
     if (viewport) {
       viewport.content = "initial-scale=1";
       viewport.content = "width=500";
@@ -129,6 +129,7 @@ function App() {
         setFoundAnimals(prev => ({...prev, [event.target.value]: true}))
         setCorrectAnswer(true)
         if(imageCounter < 2) {
+          setImageCounter(prev => prev + 1)
           setTimeout(() => {
             getNext()
           }, 600);
@@ -149,7 +150,6 @@ function App() {
       setClickLocation([0,0])
       setAnimal(imageData[imageCounter+1].animal)
       setCoords(imageData[imageCounter+1].coords)
-      setImageCounter(prev => prev + 1)
       setFound(false)
     }
   }
