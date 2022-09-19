@@ -31,6 +31,7 @@ function App() {
   const [coords, setCoords] = useState([])
   const [imageCounter, setImageCounter] = useState(0)
 
+  let viewport = document.querySelector('meta[name="viewport"]')
   const [clickLocation, setClickLocation] = useState([0,0])
   const [imgWidth, setImgWidth] = useState(0)
   const [imgHeight, setImgHeight] = useState(0)
@@ -87,32 +88,39 @@ function App() {
     }
   }
 
-  function findClickLocation(event) {      
-      if(firstClick) {
-        setFirstClick(false)
-        setImgWidth(myRef.current.clientWidth)
-        setImgHeight(myRef.current.clientHeight)
-        setStartTimer(true)
-      }
+  function findClickLocation(event) {     
+        
+    //on mobile, this will zoom out when the user clicks, allowing them to easily open the select 
+    if (viewport) {
+      viewport.content = "initial-scale=1";
+      viewport.content = "width=500";
+    }
+    
+    if(firstClick) {
+      setFirstClick(false)
+      setImgWidth(myRef.current.clientWidth)
+      setImgHeight(myRef.current.clientHeight)
+      setStartTimer(true)
+    }
 
-      let boxStartX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)-25)/myRef.current.clientWidth).toFixed(2))
-      let boxEndX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)+50)/myRef.current.clientWidth).toFixed(2))
-      let boxStartY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)-25)/myRef.current.clientHeight).toFixed(2))
-      let boxEndY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)+50)/myRef.current.clientHeight).toFixed(2))
+    let boxStartX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)-25)/myRef.current.clientWidth).toFixed(2))
+    let boxEndX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)+50)/myRef.current.clientWidth).toFixed(2))
+    let boxStartY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)-25)/myRef.current.clientHeight).toFixed(2))
+    let boxEndY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)+50)/myRef.current.clientHeight).toFixed(2))
 
-      setClickLocation([boxStartX, boxStartY])
-      // console.log(boxStartX, boxStartY)
-      // console.log(coords[0], coords[1])
+    setClickLocation([boxStartX, boxStartY])
+    // console.log(boxStartX, boxStartY)
+    // console.log(coords[0], coords[1])
 
-      setMarginLeft(event.currentTarget.getBoundingClientRect().left)
+    setMarginLeft(event.currentTarget.getBoundingClientRect().left)
 
-      //check if animal is within the target box 
-      if(boxStartX <= coords[0] && coords[0] <= boxEndX && boxStartY <= coords[1] && coords[1] <= boxEndY) {
-        setFound(true)
-      }
-      else {
-        setFound(false)
-      }
+    //check if animal is within the target box 
+    if(boxStartX <= coords[0] && coords[0] <= boxEndX && boxStartY <= coords[1] && coords[1] <= boxEndY) {
+      setFound(true)
+    }
+    else {
+      setFound(false)
+    }
   }
 
   function checkFunction(event) {
