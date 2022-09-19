@@ -11,7 +11,8 @@ const Header = ({
 	setFinalTime,
 	timeToBeat,
 	highScoreModal,
-	toggleHighScoreModal
+	toggleHighScoreModal,
+	loadNextImage
 }) => {
   
 	function reloadGame() {
@@ -32,14 +33,27 @@ const Header = ({
         <Toolbar>
 					{showTimer ? 
 						<>
-							<Box sx={{
-								margin: 'auto'}}>
-							<Timer
-								endTimer={allFound}
-								setFinalTime={setFinalTime}
-								maxTime={timeToBeat}
-							/>
+							<Box 
+								display='flex'
+								sx={{margin: 'auto'}}>
+								<Timer
+									endTimer={allFound}
+									setFinalTime={setFinalTime}
+									maxTime={timeToBeat}
+								/>
+								<Button
+									variant="contained"
+									sx={{
+										marginLeft: '1rem',
+										background: 'red',
+										display: allFound ? 'none' : 'block',
+									}}
+									onClick={loadNextImage}
+								>
+									next
+								</Button>
 							</Box>
+
 							{finalTime !== 1000 &&
 								<Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
 									<Button

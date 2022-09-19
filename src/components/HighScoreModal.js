@@ -17,7 +17,7 @@ const HighScoreModal = ({ finalTime }) => {
 	}
 	
 	return (
-		<div className="score-modal">
+		<div className="score-modal" style={{zIndex: "4"}}>
 			<form className="input-score-container" onSubmit={handleSubmit}>
 				<input
 					type="text"

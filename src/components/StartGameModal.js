@@ -8,8 +8,8 @@ import { Paper, Card, Button, Typography, Box, Fade } from '@mui/material';
 const StartGameModal = ({ highScores, hideModal }) => {
 
 	return (
-		<Box sx={{ backgroundImage: `url(${forestImg})`, marginLeft: {md: '5rem', sm: '2rem', xs: '1rem'}, marginRight: {md: '5rem', sm: '2rem', xs: '1rem'}, borderRadius: 5 }}>
-		<Paper className="start-modal" elevation={3} sx={{ backgroundColor: 'rgba(10, 100, 100, 0.7)', paddingBottom: "10px", borderRadius: 5,}}>
+		<Box sx={{ backgroundImage: `url(${forestImg})`, marginLeft: {md: '5rem', sm: '2rem', xs: '0'}, marginRight: {md: '5rem', sm: '2rem', xs: '0'} }}>
+		<Paper className="start-modal" elevation={3} sx={{ backgroundColor: 'rgba(10, 100, 100, 0.7)', paddingBottom: "10px"}}>
 			<Typography variant="h4" fontWeight="bold" color="white" mb={3} ml={1} mr={1}>Welcome to Animal Finder</Typography>
 				<Box mb={6} sx={{ color: 'white' }}>
 						<Typography fontSize={20}>
