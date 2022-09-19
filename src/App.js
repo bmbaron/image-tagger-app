@@ -10,7 +10,7 @@ import rabbitImage from './images/hidden-rabbit-min.png'
 import spiderImage from './images/hidden-spider-min.png'
 import snakeImage from './images/hidden-snake-min.png'
 
-import { Backdrop } from '@mui/material';
+import { Backdrop, Box, Typography } from '@mui/material';
 
 
 
@@ -72,13 +72,18 @@ function App() {
     if (!Object.values(foundAnimals).includes(false)) {
       setAllFound(true)
     }
+    else {
+      loadNextImage()
+    }
   }, [foundAnimals])
 
+
   useEffect(() => {
-    if(startTimer && finalTime < highScores[2].time) {
-      console.log("winner")
+    if(startTimer) {
+      setAnimal(imageData[imageCounter].animal)
+      setCoords(imageData[imageCounter].coords)
     }
-  }, [startTimer, finalTime, highScores])
+  }, [startTimer, imageData, imageCounter])
 
   
   function handleResize() {
@@ -128,12 +133,7 @@ function App() {
       if (event.target.value === animal) {
         setFoundAnimals(prev => ({...prev, [event.target.value]: true}))
         setCorrectAnswer(true)
-        if(imageCounter < 2) {
-          setImageCounter(prev => prev + 1)
-          setTimeout(() => {
-            getNext()
-          }, 600);
-        }
+        // loadNextImage()
       }
       else {
         setWrongAnswer(true)
@@ -145,11 +145,15 @@ function App() {
     setSelect("")
   }
 
-  function getNext() {
+  function loadNextImage() {  
     if(null !== imageData) {
+      if(imageCounter < 2) {
+        setImageCounter(prev => prev + 1)
+      }
+      else if (imageCounter === 2) {
+        setImageCounter(0)
+      }
       setClickLocation([0,0])
-      setAnimal(imageData[imageCounter+1].animal)
-      setCoords(imageData[imageCounter+1].coords)
       setFound(false)
     }
   }
@@ -168,15 +172,23 @@ function App() {
         sx={{ 
           backgroundColor: 
             correctAnswer ? 'rgba(0, 255, 0, 0.4)' 
-            : wrongAnswer && 'rgba(255, 0, 0, 0.4)'
+            : wrongAnswer && 'rgba(255, 0, 0, 0.4)',
+          zIndex: 2,
         }}
-        open={correctAnswer | wrongAnswer ? true : false}
-      />
+        open={correctAnswer | wrongAnswer ? true : foundAnimals[animal] ? true : false}
+      > 
+        <Box sx={{display: foundAnimals[animal] && !allFound ? 'block' : 'none' }}>
+          <Typography variant="h2" color="white">completed</Typography>
+        </Box>
+      </Backdrop>
       <img 
         src={backgroundImages[imageCounter]}
         alt="animal hidden"
         className={highScoreModal ? "animal-image blurred-image" : "animal-image"} 
-        style={{display: startGameModal ? 'none' : 'block'}}
+        style={{
+          display: startGameModal ? 'none' : 'block',
+          zIndex: 1
+        }}
         onClick={(e) => findClickLocation(e)}
         ref={myRef}>
       </img>
@@ -197,6 +209,7 @@ function App() {
             timeToBeat={highScores[2].time}
             toggleHighScoreModal={toggleHighScoreModal}
             highScoreModal={highScoreModal}
+            loadNextImage={loadNextImage}
           />
           <TargetBox
             correctAnswer={correctAnswer}
