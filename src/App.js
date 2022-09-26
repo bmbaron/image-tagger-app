@@ -77,7 +77,6 @@ function App() {
     }
   }, [foundAnimals])
 
-
   useEffect(() => {
     if(startTimer) {
       setAnimal(imageData[imageCounter].animal)
@@ -100,26 +99,38 @@ function App() {
       viewport.content = "initial-scale=1";
       viewport.content = "width=500";
     }
-    
+
+    let boxStartX
+    let boxEndX
+    let boxStartY
+    let boxEndY
+
     if(firstClick) {
       setFirstClick(false)
       setImgWidth(myRef.current.clientWidth)
       setImgHeight(myRef.current.clientHeight)
       setStartTimer(true)
+
+      boxStartX = (myRef.current.clientWidth / 2) / myRef.current.clientWidth
+      boxEndX = boxStartX
+      boxStartY = (myRef.current.clientHeight / 3) / myRef.current.clientHeight
+      boxEndY = boxStartY
+
+    }
+    else {
+      boxStartX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)-25)/myRef.current.clientWidth).toFixed(2))
+      boxEndX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)+25)/myRef.current.clientWidth).toFixed(2))
+      boxStartY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)-25)/myRef.current.clientHeight).toFixed(2))
+      boxEndY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)+25)/myRef.current.clientHeight).toFixed(2))
     }
 
-    let boxStartX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)-25)/myRef.current.clientWidth).toFixed(2))
-    let boxEndX = Number((((event.clientX-event.currentTarget.getBoundingClientRect().left)+50)/myRef.current.clientWidth).toFixed(2))
-    let boxStartY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)-25)/myRef.current.clientHeight).toFixed(2))
-    let boxEndY = Number((((event.clientY-event.currentTarget.getBoundingClientRect().top)+50)/myRef.current.clientHeight).toFixed(2))
 
     setClickLocation([boxStartX, boxStartY])
-    // console.log(boxStartX, boxStartY)
-    // console.log(coords[0], coords[1])
 
+    //used for positioning the target box component
     setMarginLeft(event.currentTarget.getBoundingClientRect().left)
 
-    //check if animal is within the target box 
+    //check if animal is within the virtual target box 
     if(boxStartX <= coords[0] && coords[0] <= boxEndX && boxStartY <= coords[1] && coords[1] <= boxEndY) {
       setFound(true)
     }
@@ -133,7 +144,6 @@ function App() {
       if (event.target.value === animal) {
         setFoundAnimals(prev => ({...prev, [event.target.value]: true}))
         setCorrectAnswer(true)
-        // loadNextImage()
       }
       else {
         setWrongAnswer(true)
@@ -145,7 +155,7 @@ function App() {
     setSelect("")
   }
 
-  function loadNextImage() {  
+  function loadNextImage() {
     if(null !== imageData) {
       if(imageCounter < 2) {
         setImageCounter(prev => prev + 1)
@@ -157,6 +167,8 @@ function App() {
       setFound(false)
     }
   }
+
+  
 
   function toggleStartGameModal() {
     setStartGameModal(false)
